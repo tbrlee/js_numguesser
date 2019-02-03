@@ -2,7 +2,8 @@
 //Game default values
 let min = 1,
     max =  10,
-    winningNum = 2,
+    //Geerate rsndom guess number from 1 to 10
+    winningNum = getRandomNum(min, max),
     guessesLeft = 3;
 
 //UI Elements
@@ -17,6 +18,13 @@ const game = document.querySelector('#game'),
 minNum.textContent = min;
 maxNum.textContent = max;
 
+
+//Play again eventt listener 
+game.addEventListener('mousedown', function(e) {
+  if(e.target.className === 'play-again') {
+    window.location.reload();
+  }
+});
 //Listen for guess
 guessBtn.addEventListener('click', function(){
   let guess = parseInt(guessInput.value);
@@ -75,8 +83,18 @@ function gameOver(won, msg) {
   // Set message
   setMessage(msg);
 
+  //Play again
+  guessBtn.value = 'Play Again';
+   guessBtn.className += 'play-again';
+  //guessBtn.className.add('play-again'); 
+
+
 }  
 
+//Fuction for random guess  number
+function getRandomNum(min, max) {
+  return Math.floor(Math.random() * (max-min+1)+min);
+}
 
 // Set message
 function setMessage(msg, color){
